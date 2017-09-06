@@ -1,4 +1,4 @@
-class mqtt_client : public object_t, public mosqpp::mosquittopp {
+class mqtt_client : public object, public mosqpp::mosquittopp {
   bool connected = false;
   var  on_message_callback = nil();
   
