@@ -4,8 +4,7 @@ class mqtt_client : public object, public mosqpp::mosquittopp {
   
  public:
 
-  size_t type()                const { return runtime::type::mqtt_client; }
-  bool   equals(var const & o) const { return (this == o.get()); }
+  type_t type() const final { return type_id<mqtt_client>; }
   void   stream_console()      const { runtime::print("mtqq_client"); }
 
   explicit mqtt_client(std::string host, int port) : mosquittopp("ferret_mqtt_client"){
@@ -40,7 +39,6 @@ class mqtt_client : public object, public mosqpp::mosquittopp {
   void on_message(const struct mosquitto_message *message){
     if (!on_message_callback.is_nil()){
       var topic = obj<string>(std::string(message->topic));
-      //var payload = obj<string>(std::string(message->payload));
 
       int len = message->payloadlen;
       char* payload = (char*)message->payload;
